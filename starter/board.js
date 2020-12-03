@@ -50,21 +50,29 @@ class Board {
 
   count() {
     // TODO: Return the number of valid targets (ships) remaining.
+    return this.numShips;
   }
 
   isValidMove(pos) {
     // TODO: Take in an attack position (in the form of an array [row, col]) and
     // return true if the position is a valid move.
+
   }
 
   isGameOver() {
     // TODO: Return true if the game is over (when all ships are hit).
   }
 
-  attack() {
+  attack([row, col]) {
     // TODO: Take in an attack position in the form of an array, [row, col], as
     // a parameter. Update this.grid depending on if the position is an empty
     // space or a damaged ship.
+    if (this.grid[row-1][col-1] === 's') {
+      this.grid[row-1][col-1] = 'h';
+      this.numShips--;
+    } else {
+      this.grid[row-1][col-1] = 'x';
+    }
   }
 }
 
