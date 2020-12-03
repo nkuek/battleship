@@ -12,23 +12,40 @@ class Board {
   populateGrid() {
     // TODO: Using the instance variables numRows, numCols, and numShips, return
     // a 2D array representing the state of the board.
-
-  }
-
-  createGrid(numRos, numCols) {
     const grid = [];
-    for (let i = 0; i < numRows; i++) {
-      // push empty arr into grid
-      grid.push([]);
+      for (let row = 0; row < this.numRos; row++) {
+        grid.push(Array(this.numCols).fill(null))
+      }
+    let count = this.numShips;
+    while (count > 0) {
+      const randomRow = Math.floor(Math.random() * this.numRos);
+      const randomCol = Math.floor(Math.random() * this.numCols);
+      if (grid[randomRow][randomCol] === null) {
+        grid[randomRow][randomCol] = 's'
+        count--
+      }
     }
-    console.log(grid)
+    return grid
   }
-  createGrid()
+
+//   createGrid(numRows, numCols) {
+//     let result = []
+//     for (let row = 0; row < numRows; row++) {
+//         let subArr = []
+//         for (let col = 0; col < numCols; col++) {
+//             subArr.push(null)
+//         }
+//         result.push(subArr)
+//     }
+
+//     return result
+// }
 
   display() {
     // TODO: Print the game board with marks on any spaces that have been fired
     // upon. Be sure not to display the unhit ships to the user! Hint: you might
     // be able to use console.table()
+    console.table(this.grid)
   }
 
   count() {
