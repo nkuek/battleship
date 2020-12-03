@@ -1,3 +1,4 @@
+let initialized = false;
 class Board {
   constructor(numRos, numCols, numShips) {
     // TODO: Set up constructor that sets the numRos, numCols, and numShips.
@@ -6,16 +7,19 @@ class Board {
     this.numShips = numShips;
     // TODO: Set this.grid equal to the return value of the instance method
     // populateGrid().
-    this.grid = populateGrid(); //this?
+    this.grid = this.populateGrid(); //this?
   }
 
   populateGrid() {
     // TODO: Using the instance variables numRows, numCols, and numShips, return
     // a 2D array representing the state of the board.
+
+    if (initialized === true) return
     const grid = [];
       for (let row = 0; row < this.numRos; row++) {
         grid.push(Array(this.numCols).fill(null))
       }
+
     let count = this.numShips;
     while (count > 0) {
       const randomRow = Math.floor(Math.random() * this.numRos);
@@ -24,6 +28,7 @@ class Board {
         grid[randomRow][randomCol] = 's'
         count--
       }
+      initialized = true
     }
     return grid
   }
@@ -53,14 +58,16 @@ class Board {
     return this.numShips;
   }
 
-  isValidMove(pos) {
+  isValidMove([row, col]) {
     // TODO: Take in an attack position (in the form of an array [row, col]) and
     // return true if the position is a valid move.
-
+    if (!this.grid[row-1] || !this.grid[row-1][col-1]) return false
+    return this.grid[row - 1][col - 1] !== 'x' && this.grid[row - 1][col - 1] !== 'h'
   }
 
   isGameOver() {
     // TODO: Return true if the game is over (when all ships are hit).
+    return this.numShips === 0
   }
 
   attack([row, col]) {
@@ -75,5 +82,12 @@ class Board {
     }
   }
 }
+
+// const test = new Board(3, 3, 3)
+// console.table(test.grid)
+// test.attack([2, 3])
+// test.display()
+// test.display()
+// test.display()
 
 module.exports = Board;
