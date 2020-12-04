@@ -83,11 +83,11 @@ class Board {
   }
 }
 
-// const test = new Board(3, 3, 3)
-// console.table(test.grid)
-// test.attack([2, 3])
-// test.display()
-// test.display()
-// test.display()
+const test = new Board(3, 3, 3)
+console.table(test.grid)
+test.attack([2, 3])
+test.display()
+test.display()
+test.display()
 
 module.exports = Board;
